@@ -1,5 +1,6 @@
 
-//Extra Done: Game Time (Grade This)
+//Extra Done: Animation (Grade This)
+//Extra Done: Game Time
 
 $(document).ready(function(){
 	$("div div div").addClass("puzzlepiece");
@@ -60,8 +61,9 @@ $(document).ready(function(){
 
 		//Switch piece with blank if clicked
 		$(pieces[i]).on("click", function(){
-			if(validate(this)){ 
-				switchTile(this); 
+			if(validate(this)){
+				//switchTile(this); 
+				Animateswitch(this);
 				moves++;
 			}
 		});
@@ -88,6 +90,17 @@ $(document).ready(function(){
 
         $(move).css("top", tempy);
 		$(move).css("left", tempx);
+	};
+
+	//Switch using animation
+	var Animateswitch = function(move){
+		var tempx = blankx;
+		var tempy = blanky;
+
+		blanky = parseInt($(move).css("top"));
+		blankx = parseInt($(move).css("left"));
+
+        $(move).animate({'top': tempy, 'left': tempx}, 'slow');
 	};
 
     //check if next to blank then move
