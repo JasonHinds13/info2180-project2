@@ -78,7 +78,7 @@ $(document).ready(function(){
 		var arr = []; //holds tiles we want
 
 		for(var i=0; i < pieces.length; i++){
-			if (validate(pieces[i]) == true){
+			if (validate(pieces[i])){
 				arr.push(pieces[i]);
 			}
 		}
@@ -93,7 +93,7 @@ $(document).ready(function(){
 
 	$("#shufflebutton").on("click", function(){
 		//amount of times to move piece while shuffling (between 100 and 200)
-		times = Math.floor(Math.random() * 100) + 100;
+		var times = Math.floor(Math.random() * 100) + 100;
 
 		for(var i=0; i < times; i++){
 			movepiece();
