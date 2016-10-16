@@ -1,3 +1,6 @@
+
+//Extra Done: Game Time (Grade This)
+
 $(document).ready(function(){
 	$("div div div").addClass("puzzlepiece");
 
@@ -12,6 +15,18 @@ $(document).ready(function(){
     //Positions for blank square
     var blankx = 300;
     var blanky = 300;
+
+    var sec = 0; //Time in seconds
+    var moves = 0; //moves the player has made
+
+    //timer function
+	var timer = function(){
+		var exp = document.querySelector(".explanation");
+		var interval = setInterval(function(){
+			sec++;
+			exp.innerHTML = "Time Taken: "+sec+" seconds "+"Moves Made: "+moves;
+		}, 1000);
+	};
 
 	var pieces = document.getElementsByClassName("puzzlepiece");
 
@@ -45,7 +60,10 @@ $(document).ready(function(){
 
 		//Switch piece with blank if clicked
 		$(pieces[i]).on("click", function(){
-			if(validate(this)){ switchTile(this); }
+			if(validate(this)){ 
+				switchTile(this); 
+				moves++;
+			}
 		});
 	}
 
@@ -88,7 +106,6 @@ $(document).ready(function(){
 
 		//switch the blank tile with the random tile
 		switchTile(move);
-
 	};
 
 	$("#shufflebutton").on("click", function(){
@@ -98,5 +115,7 @@ $(document).ready(function(){
 		for(var i=0; i < times; i++){
 			movepiece();
 		}
+
+		timer();
 	});
 });
