@@ -3,7 +3,7 @@
 //Extra Done: Game Time
 
 $(document).ready(function(){
-	$("div div div").addClass("puzzlepiece");
+	$("#puzzlearea div").addClass("puzzlepiece");
 
 	//These will help position the divs properly in the puzzle area
     var posx = parseInt($("#puzzlearea").css("top"));
@@ -62,8 +62,7 @@ $(document).ready(function(){
 		//Switch piece with blank if clicked
 		$(pieces[i]).on("click", function(){
 			if(validate(this)){
-				//switchTile(this); 
-				Animateswitch(this);
+				switchTile(this, true);
 				moves++;
 			}
 		});
@@ -81,26 +80,20 @@ $(document).ready(function(){
 	};
 
 	//function to switch
-	var switchTile = function(move){
+	var switchTile = function(move, anim){
 		var tempx = blankx;
 		var tempy = blanky;
 
 		blanky = parseInt($(move).css("top"));
 		blankx = parseInt($(move).css("left"));
 
-        $(move).css("top", tempy);
-		$(move).css("left", tempx);
-	};
-
-	//Switch using animation
-	var Animateswitch = function(move){
-		var tempx = blankx;
-		var tempy = blanky;
-
-		blanky = parseInt($(move).css("top"));
-		blankx = parseInt($(move).css("left"));
-
-        $(move).animate({'top': tempy, 'left': tempx}, 'slow');
+		if(anim){
+			$(move).animate({'top': tempy, 'left': tempx}, 'slow');
+		}
+		else{
+            $(move).css("top", tempy);
+		    $(move).css("left", tempx);
+	    }
 	};
 
     //check if next to blank then move
@@ -118,7 +111,7 @@ $(document).ready(function(){
 		var move = arr[Math.floor(Math.random() * arr.length)];
 
 		//switch the blank tile with the random tile
-		switchTile(move);
+		switchTile(move, false);
 	};
 
 	$("#shufflebutton").on("click", function(){
