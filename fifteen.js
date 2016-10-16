@@ -3,6 +3,8 @@
 //Extra Done: Game Time
 //Extra Done: Slide Rows and Columns
 
+"use strict";
+
 $(document).ready(function(){
 	$("#puzzlearea div").addClass("puzzlepiece");
 
@@ -144,8 +146,8 @@ $(document).ready(function(){
 	//Test if tiles are near blank tile
 	var validate = function(piece){
 
-		if(((parseInt($(piece).css("top")) - blanky == 100 || parseInt($(piece).css("top")) - blanky == -100) && parseInt($(piece).css("left")) - blankx == 0)
-			||((parseInt($(piece).css("left")) - blankx == 100 || parseInt($(piece).css("left")) - blankx == -100) && parseInt($(piece).css("top")) - blanky == 0)){
+		if(((parseInt($(piece).css("top")) - blanky == 100 || parseInt($(piece).css("top")) - blanky == -100) && parseInt($(piece).css("left")) - blankx == 0) ||
+			((parseInt($(piece).css("left")) - blankx == 100 || parseInt($(piece).css("left")) - blankx == -100) && parseInt($(piece).css("top")) - blanky == 0)){
 				return true;
 			}
 
