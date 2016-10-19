@@ -2,6 +2,7 @@
 //Extra Done: Animation (Grade This)
 //Extra Done: Game Time
 //Extra Done: Slide Rows and Columns
+//Extra Done: End of Game Notification
 
 "use strict";
 
@@ -23,14 +24,45 @@ $(document).ready(function(){
     var sec = 0; //Time in seconds
     var moves = 0; //moves the player has made
 
-    var interval = null;
+    var interval = null; //time keeping
+
+    var exp = document.querySelector(".explanation"); //uses the first as output field
+
+    var originalpos = []; //holds original position position of pieces to win
+    var currentpos = []; //holds the current position of pieces
+
+    //win function
+    var winner = function(){
+
+    	clearInterval(interval);
+
+    	exp.innerHTML = "YOU WIN! Time: "+sec+" seconds "+"Moves: "+moves;
+
+    	$(exp).css("color", "green");
+    	$(exp).css("text-decoration", "underline");
+    };
+
+    //check if we win
+    var checkWin = function(){
+
+    	currentpos = [];
+
+    	for(var i=0; i < pieces.length; i++){
+    		currentpos.push($(pieces[i]).css("top"));
+		    currentpos.push($(pieces[i]).css("left"));
+    	}
+
+    	if(originalpos.toString() == currentpos.toString()){
+    		winner();
+    	}
+    };
 
     //timer function
 	var timer = function(){
-		var exp = document.querySelector(".explanation");
 		interval = setInterval(function(){
 			sec++;
 			exp.innerHTML = "Time Taken: "+sec+" seconds "+"Moves Made: "+moves;
+			checkWin();
 		}, 1000);
 	};
 
@@ -46,6 +78,9 @@ $(document).ready(function(){
 		//Positioning each div
 		$(pieces[i]).css("top", posy);
 		$(pieces[i]).css("left", posx);
+
+		originalpos.push($(pieces[i]).css("top"));
+		originalpos.push($(pieces[i]).css("left"));
 
 		posx += 100;
 
@@ -70,7 +105,10 @@ $(document).ready(function(){
 				switchTile(this, true);
 				moves++;
 			}
-			else if(multiMV(this)){ moveMultiple(this); }
+			else if(multiMV(this)){ 
+				moveMultiple(this); 
+				moves++;
+			}
 		});
 	}
 
@@ -193,9 +231,11 @@ $(document).ready(function(){
 
 	$("#shufflebutton").on("click", function(){
 
-		//Set time and amount of moves to 0 each shuffle
+		//Back to normal (re-initialize)
 		sec = 0;
         moves = 0;
+        $(exp).css("color", "black");
+        $(exp).css("text-decoration", "none");
 
 		//amount of times to move piece while shuffling (between 100 and 200)
 		var times = Math.floor(Math.random() * 100) + 100;
