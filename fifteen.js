@@ -257,7 +257,6 @@ $(document).ready(function(){
 
 		//amount of times to move piece while shuffling (between 100 and 200)
 		var times = Math.floor(Math.random() * 100) + 100;
-		times = 3;
 
 		for(var i=0; i < times; i++){
 			movepiece();
