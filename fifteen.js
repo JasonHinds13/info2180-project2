@@ -23,10 +23,12 @@ $(document).ready(function(){
     var sec = 0; //Time in seconds
     var moves = 0; //moves the player has made
 
+    var interval = null;
+
     //timer function
 	var timer = function(){
 		var exp = document.querySelector(".explanation");
-		var interval = setInterval(function(){
+		interval = setInterval(function(){
 			sec++;
 			exp.innerHTML = "Time Taken: "+sec+" seconds "+"Moves Made: "+moves;
 		}, 1000);
@@ -190,6 +192,11 @@ $(document).ready(function(){
 	};
 
 	$("#shufflebutton").on("click", function(){
+
+		//Set time and amount of moves to 0 each shuffle
+		sec = 0;
+        moves = 0;
+
 		//amount of times to move piece while shuffling (between 100 and 200)
 		var times = Math.floor(Math.random() * 100) + 100;
 
@@ -197,6 +204,7 @@ $(document).ready(function(){
 			movepiece();
 		}
 
+		clearInterval(interval);
 		timer();
 	});
 });
