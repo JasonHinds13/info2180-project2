@@ -24,6 +24,10 @@ $(document).ready(function(){
     var sec = 0; //Time in seconds
     var moves = 0; //moves the player has made
 
+    //highscores
+    var best_sec = 0;
+    var best_moves = 0;
+
     var interval = null; //time keeping
 
     var exp = document.querySelector(".explanation"); //uses the first as output field
@@ -36,7 +40,21 @@ $(document).ready(function(){
 
     	clearInterval(interval);
 
+    	function getBest(){
+    		if(best_sec == 0 && best_moves == 0){
+    			best_sec = sec;
+    			best_moves = moves;
+    		}
+    		else{
+    		    if(sec <= best_sec){ best_sec = sec; }
+    		    if(moves <= best_moves){ best_moves = moves; }
+    		}
+
+    		return " BEST TIME: "+best_sec+" BEST MOVES: "+best_moves;
+    	}
+
     	exp.innerHTML = "YOU WIN! Time: "+sec+" seconds "+"Moves: "+moves;
+    	exp.innerHTML += getBest();
 
     	$(exp).css("color", "green");
     	$(exp).css("text-decoration", "underline");
@@ -239,6 +257,7 @@ $(document).ready(function(){
 
 		//amount of times to move piece while shuffling (between 100 and 200)
 		var times = Math.floor(Math.random() * 100) + 100;
+		times = 3;
 
 		for(var i=0; i < times; i++){
 			movepiece();
