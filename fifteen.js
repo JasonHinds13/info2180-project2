@@ -10,8 +10,8 @@ $(document).ready(function(){
 	$("#puzzlearea div").addClass("puzzlepiece");
 
 	//These will help position the divs properly in the puzzle area
-    var posx = parseInt($("#puzzlearea").css("top"));
-    var posy = parseInt($("#puzzlearea").css("left"));
+    var posy = parseInt($("#puzzlearea").css("top"));
+    var posx = parseInt($("#puzzlearea").css("left"));
 
     //These are for the pics position
     var picx = 0;
@@ -104,7 +104,7 @@ $(document).ready(function(){
 
 		if(i !=0 && (i+1)%4 == 0){ 
 			posy += 100; 
-			posx = parseInt($("#puzzlearea").css("top")); 
+			posx = parseInt($("#puzzlearea").css("left"));
 		}
 
 		//Glow piece if hovered
